@@ -1,0 +1,114 @@
+name: CI
+on:
+  push:
+  pull_request:
+
+jobs:
+  static:
+    runs-on: ubuntu-20.04
+    name: Static Analysis (PHP ${{ matrix.php }})(Laravel ${{ matrix.laravel }})
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [8.0]
+        laravel: [^8.0]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          tools: composer:v2, cs2pr
+          coverage: pcov
+
+      - name: Cache Composer cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.composer/cache
+          key: composer-cache-php${{ matrix.php }}-laravel${{ matrix.laravel }}
+
+      - name: configure composer config key
+        run: composer config --global github-oauth.github.com "$TOKEN_SECRET"
+        env:
+          TOKEN_SECRET: ${{ secrets.COMPOSER_AUTH_SECRET}}
+
+      - name: Install dependencies
+        run: |
+          composer require "illuminate/contracts=${{ matrix.laravel }}" --no-update
+          composer update --prefer-dist --no-interaction --no-progress
+
+      - name: Psalm
+        run: vendor/bin/psalm --threads=2 --shepherd --stats
+        continue-on-error: true
+
+      - name: PHPStan
+        run: php vendor/bin/phpstan analyse --error-format=checkstyle --no-progress | cs2pr
+
+
+  tests:
+    runs-on: ubuntu-20.04
+
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [7.4, 8.0]
+        laravel: [^8.0]
+        include:
+          - php: '8.0'
+            laravel: '^8.0'
+            coverage: true
+
+    name: PHPUnit (PHP ${{ matrix.php }})(Laravel ${{ matrix.laravel }})
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          tools: composer:v2
+          coverage: pcov
+
+      - name: Cache Composer cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.composer/cache
+          key: composer-cache-php${{ matrix.php }}-laravel${{ matrix.laravel }}
+
+      - name: configure composer config key
+        run: composer config --global github-oauth.github.com "$TOKEN_SECRET"
+        env:
+          TOKEN_SECRET: ${{ secrets.COMPOSER_AUTH_SECRET}}
+
+      - name: Install dependencies
+        run: |
+          composer require "illuminate/contracts=${{ matrix.laravel }}" --no-update
+          composer update --prefer-dist --no-interaction --no-progress
+
+      - name: Enable code coverage
+        if: matrix.coverage
+        run: echo "COVERAGE=1" >> $GITHUB_ENV
+
+      - name: PHPUnit
+        run: |
+          mkdir -p build/logs/phpunit
+          if [ "$COVERAGE" = '1' ]; then
+            ./vendor/bin/phpunit --coverage-clover build/logs/phpunit/clover.xml --log-junit build/logs/phpunit/junit.xml --colors=always
+          else
+            ./vendor/bin/phpunit --log-junit build/logs/phpunit/junit.xml --colors=always
+          fi
+
+      - name: Upload coverage results to Codecov
+        if: matrix.coverage
+        uses: codecov/codecov-action@v1
+        with:
+          name: phpunit-php${{ matrix.php }}
+          flags: phpunit
+          fail_ci_if_error: true
+        continue-on-error: true
