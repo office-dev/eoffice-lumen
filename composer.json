@@ -1,7 +1,11 @@
 {
     "name": "eoffice/eoffice",
     "description": "Open Source Digital Office Solution",
-    "keywords": ["framework", "laravel", "lumen"],
+    "keywords": [
+        "framework",
+        "laravel",
+        "lumen"
+    ],
     "license": "MIT",
     "type": "project",
     "repositories": [
@@ -21,6 +25,9 @@
         "laravel/lumen-framework": "^8.0"
     },
     "require-dev": {
+        "codeception/codeception": "^4.1",
+        "codeception/module-lumen": "^2.0",
+        "codeception/module-webdriver": "^1.2",
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.3.1",
         "phpstan/extension-installer": "^1.1",
@@ -49,9 +56,9 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\EOffice\\": "tests/unit/",
-            "Functional\\EOffice\\": "tests/functional/",
             "Feature\\EOffice\\": "tests/feature/",
-            "Fixtures\\EOffice\\": "tests/fixtures"
+            "Fixtures\\EOffice\\": "tests/fixtures",
+            "Acceptance\\EOffice\\": "tests/acceptance"
         }
     },
     "config": {
@@ -64,6 +71,9 @@
     "scripts": {
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-install-cmd": [
+            "@php artisan cache:clear"
         ]
     },
     "conflict": {
