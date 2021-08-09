@@ -11,11 +11,14 @@
 
 declare(strict_types=1);
 
-namespace App\Console;
+namespace EOffice\Packages\Core\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class Kernel extends ConsoleKernel
 {
     /**
@@ -29,7 +32,7 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param \Illuminate\Console\Scheduling\Schedule $schedule
+     * @param Schedule $schedule
      *
      * @return void
      */

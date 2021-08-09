@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace App\Exceptions;
+namespace EOffice\Packages\Core\Exceptions;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

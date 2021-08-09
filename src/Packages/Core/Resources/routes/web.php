@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the EOffice project.
  *
@@ -11,8 +10,11 @@
 
 declare(strict_types=1);
 
-require_once __DIR__.'/../vendor/autoload.php';
+use Illuminate\Support\Facades\Route;
+use Laravel\Lumen\Routing\Router;
 
-use EOffice\Packages\Core\EOffice;
+/** @var Router $router*/
 
-return (new EOffice())->bootstrap()->getApplication();
+$router->get('/', function(){
+    return "Hello World";
+});
