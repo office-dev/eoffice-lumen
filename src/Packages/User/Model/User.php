@@ -11,16 +11,19 @@
 
 declare(strict_types=1);
 
-namespace EOffice\Packages\Testing;
+namespace EOffice\Packages\User\Model;
 
-use Mockery as m;
-use PHPUnit\Framework\TestCase;
+use Doctrine\ORM\Mapping as ORM;
 
-class UnitTestCase extends TestCase
+/**
+ * @ORM\Entity
+ */
+class User
 {
-    protected function tearDown(): void
-    {
-        m::close();
-        parent::tearDown();
-    }
+    /**
+     * @ORM\Column(type="string")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="UUID")
+     */
+    protected string $id;
 }

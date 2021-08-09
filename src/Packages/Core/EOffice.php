@@ -100,10 +100,9 @@ class EOffice
     private function registerProviders(): void
     {
         $app = $this->app;
-
-        $app->register(Providers\EOfficeServiceProvider::class);
         $app->register(Providers\AuthServiceProvider::class);
         $app->register(Providers\EventServiceProvider::class);
         $app->register(Providers\RouteServiceProvider::class);
+        $app->register(Providers\EOfficeServiceProvider::class);
     }
 }

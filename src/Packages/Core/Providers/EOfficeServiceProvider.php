@@ -13,11 +13,19 @@ declare(strict_types=1);
 
 namespace EOffice\Packages\Core\Providers;
 
+use EOffice\Packages\Resource\Providers\ResourceServiceProvider;
+use EOffice\Packages\User\Providers\UserServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class EOfficeServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
+    }
+
+    public function register()
+    {
+        $this->app->register(ResourceServiceProvider::class);
+        $this->app->register(UserServiceProvider::class);
     }
 }
