@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of the EOffice project.
+ *
+ * (c) Anthonius Munthi <https://itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace Functional\EOffice;
 
 use EOffice\Packages\Testing\FunctionalTestCase;
@@ -8,8 +19,8 @@ use EOffice\Packages\Testing\FunctionalTestCase;
  * @covers \EOffice\Packages\Core\Providers\EOfficeServiceProvider
  * @covers \EOffice\Packages\Core\Providers\RouteServiceProvider
  * @covers \EOffice\Packages\Core\Providers\AuthServiceProvider
- * @covers route_register_api
- * @covers route_register_web
+ * @covers \route_register_api
+ * @covers \route_register_web
  */
 class HomepageTest extends FunctionalTestCase
 {

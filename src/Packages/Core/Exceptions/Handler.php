@@ -19,9 +19,9 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
@@ -46,8 +46,9 @@ class Handler extends ExceptionHandler
      *
      * @param Throwable $e
      *
-     * @return void
      * @throws Exception
+     *
+     * @return void
      */
     public function report(Throwable $e)
     {
@@ -57,11 +58,12 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param Request $request
+     * @param Request   $request
      * @param Throwable $e
      *
-     * @return Response|JsonResponse|SymfonyResponse
      * @throws Throwable
+     *
+     * @return Response|JsonResponse|SymfonyResponse
      */
     public function render($request, Throwable $e)
     {

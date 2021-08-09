@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of the EOffice project.
+ *
+ * (c) Anthonius Munthi <https://itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace EOffice\Packages\Core;
 
 use EOffice\Packages\Core\Exceptions\CoreException;
@@ -10,8 +21,11 @@ use Laravel\Lumen\Bootstrap\LoadEnvironmentVariables;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
- * EOffice Bootstrapper
+ * EOffice Bootstrapper.
+ *
  * @codeCoverageIgnore
+ * @psalm-suppress MissingConstructor
+ * @psalm-suppress PossiblyUndefinedMethod
  */
 class EOffice
 {
@@ -20,8 +34,14 @@ class EOffice
      */
     private $app;
 
-    public function bootstrap(): EOffice
+    /**
+     * @throws CoreException
+     *
+     * @return $this
+     */
+    public function bootstrap(): self
     {
+        /** @psalm-param Application $app */
         $app = $this->createApplication();
 
         $app->withFacades();
@@ -46,30 +66,32 @@ class EOffice
     }
 
     /**
-     * Create new application
+     * Create new application.
+     *
+     * @throws CoreException
      *
      * @return Application|HttpKernelInterface
-     * @throws CoreException
      */
     private function createApplication()
     {
         $basePath = $this->detectPath();
         (new LoadEnvironmentVariables($basePath))->bootstrap();
-        date_default_timezone_set((string)env('APP_TIMEZONE', 'UTC'));
+        date_default_timezone_set((string) env('APP_TIMEZONE', 'UTC'));
 
         return new Application($basePath);
     }
 
     /**
-     * Detect app path
+     * Detect app path.
+     *
+     * @throws CoreException
      *
      * @return string
-     * @throws CoreException
      */
     private function detectPath(): string
     {
-        if(is_dir($dir = __DIR__.'/../../../vendor')){
-            return realpath(dirname($dir));
+        if (is_dir($dir = __DIR__.'/../../../vendor')) {
+            return realpath(\dirname($dir));
         }
 
         throw CoreException::undetectedBasePathDir();

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the EOffice project.
  *
@@ -11,10 +12,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Laravel\Lumen\Routing\Router;
 
-/** @var Router $router*/
-
-$router->get('/', function(){
-    return "Hello World";
+Route::get('/', function () {
+    return 'Hello World';
 });
