@@ -11,10 +11,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Middleware;
+namespace EOffice\Packages\Auth\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use function response;
 
 class Authenticate
 {
