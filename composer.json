@@ -50,7 +50,8 @@
         "psr-4": {
             "Tests\\EOffice\\": "tests/unit/",
             "Functional\\EOffice\\": "tests/functional/",
-            "Feature\\EOffice\\": "tests/feature/"
+            "Feature\\EOffice\\": "tests/feature/",
+            "Fixtures\\EOffice\\": "tests/fixtures"
         }
     },
     "config": {

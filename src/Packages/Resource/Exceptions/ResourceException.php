@@ -22,11 +22,19 @@ class ResourceException extends \Exception
         );
     }
 
-    public static function modelDirNotExists(mixed $dir)
+    public static function modelDirNotExists(mixed $dir): self
     {
         return new self(sprintf(
             'Model direktori "%s" tidak ditemukan.',
             $dir
+        ));
+    }
+
+    public static function doctrineExtensionClassNotExists(string $class): self
+    {
+        return new self(sprintf(
+                'Tidak dapat menambahkan ekstensi doctrine, class "%s" tidak ditemukan.',
+                $class
         ));
     }
 }

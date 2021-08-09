@@ -11,17 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Functional\EOffice\Packages\Resource\Providers;
+namespace Tests\EOffice\Packages\Resource\Providers;
 
 use EOffice\Packages\Testing\Concerns\InteractsWithServiceProvider;
-use EOffice\Packages\Testing\FunctionalTestCase;
+use EOffice\Packages\Testing\TestCase;
 use LaravelDoctrine\Extensions\GedmoExtensionsServiceProvider;
 use LaravelDoctrine\ORM\DoctrineServiceProvider;
 
 /**
  * @covers \EOffice\Packages\Resource\Providers\ResourceServiceProvider
  */
-class ResourceServiceProviderTest extends FunctionalTestCase
+class ResourceServiceProviderTest extends TestCase
 {
     use InteractsWithServiceProvider;
 

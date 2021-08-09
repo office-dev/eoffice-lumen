@@ -13,11 +13,23 @@ declare(strict_types=1);
 
 namespace EOffice\Packages\Testing;
 
+use EOffice\Packages\Core\EOffice;
+use EOffice\Packages\Core\Exceptions\CoreException;
+use Laravel\Lumen\Testing\TestCase as BaseTestCase;
 use Mockery as m;
-use PHPUnit\Framework\TestCase;
 
-class UnitTestCase extends TestCase
+class TestCase extends BaseTestCase
 {
+    /**
+     * {@inheritDoc}
+     *
+     * @throws CoreException
+     */
+    public function createApplication()
+    {
+        return (new EOffice())->bootstrap()->getApplication();
+    }
+
     protected function tearDown(): void
     {
         m::close();

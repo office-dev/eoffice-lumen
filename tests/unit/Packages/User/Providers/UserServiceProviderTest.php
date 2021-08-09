@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Functional\EOffice\Packages\User\Providers;
+namespace Tests\EOffice\Packages\User\Providers;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
-use EOffice\Packages\Testing\FunctionalTestCase;
+use EOffice\Packages\Testing\TestCase;
 use EOffice\Packages\User\Model\User;
 use EOffice\Packages\User\Providers\UserServiceProvider;
 use LaravelDoctrine\ORM\Facades\EntityManager;
@@ -22,7 +22,7 @@ use LaravelDoctrine\ORM\Facades\EntityManager;
 /**
  * @covers \EOffice\Packages\User\Providers\UserServiceProvider
  */
-class UserServiceProviderTest extends FunctionalTestCase
+class UserServiceProviderTest extends TestCase
 {
     public function test_it_should_be_loaded(): void
     {

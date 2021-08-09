@@ -26,23 +26,44 @@ if ( ! function_exists('register_model')) {
         $config      = App('config');
         $managerName = $options['manager_name'] ?? 'default';
         $type        = $options['type'] ?? 'annotation';
-        $dir         = $options['path'] ?? null;
+        $path         = $options['path'] ?? null;
 
-        if (null === $dir) {
+        if (null === $path) {
             throw ResourceException::nullModelPath();
         }
 
-        if ( ! is_dir($dir)) {
-            throw ResourceException::modelDirNotExists($dir);
+        if ( ! is_dir($path)) {
+            throw ResourceException::modelDirNotExists($path);
         }
 
         $existing = (array) $config->get('doctrine.managers.default.mappings', []);
         $key      = 'doctrine.managers.'.$managerName.'.mappings';
         $config->set($key, array_merge($existing, [
             $namespace => [
-                'dir' => $dir,
+                'dir' => realpath($path),
                 'type' => $type,
             ],
         ]));
+    }
+}
+
+if(!function_exists('load_doctrine_extension')){
+
+    /**
+     * @param class-string $class
+     * @throws ResourceException when class not exists
+     */
+    function load_doctrine_extension(string $class)
+    {
+        /** @var Repository $config */
+        $config = App('config');
+
+        $extensions = (array)$config->get('doctrine.extensions', []);
+        $extensions[] = $class;
+
+        if(! class_exists($class)){
+            throw ResourceException::doctrineExtensionClassNotExists($class);
+        }
+        $config->set('doctrine.extensions', $extensions);
     }
 }

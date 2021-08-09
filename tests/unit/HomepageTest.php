@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace Functional\EOffice;
+namespace Tests\EOffice;
 
-use EOffice\Packages\Testing\FunctionalTestCase;
+use EOffice\Packages\Testing\TestCase;
 
 /**
  * @covers \EOffice\Packages\Core\Providers\EOfficeServiceProvider
@@ -22,7 +22,7 @@ use EOffice\Packages\Testing\FunctionalTestCase;
  * @covers \route_register_api
  * @covers \route_register_web
  */
-class HomepageTest extends FunctionalTestCase
+class HomepageTest extends TestCase
 {
     public function test_its_homepage_should_be_accessible(): void
     {
