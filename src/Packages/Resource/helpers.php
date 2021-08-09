@@ -23,9 +23,9 @@ if ( ! function_exists('register_model')) {
     function register_model(string $namespace, array $options): void
     {
         /** @var Repository $config */
-        $config      = App('config');
-        $managerName = $options['manager_name'] ?? 'default';
-        $type        = $options['type'] ?? 'annotation';
+        $config       = App('config');
+        $managerName  = $options['manager_name'] ?? 'default';
+        $type         = $options['type'] ?? 'annotation';
         $path         = $options['path'] ?? null;
 
         if (null === $path) {
@@ -47,10 +47,10 @@ if ( ! function_exists('register_model')) {
     }
 }
 
-if(!function_exists('load_doctrine_extension')){
-
+if ( ! function_exists('load_doctrine_extension')) {
     /**
-     * @param class-string $class
+     * @param string|class-string $class
+     *
      * @throws ResourceException when class not exists
      */
     function load_doctrine_extension(string $class)
@@ -58,10 +58,10 @@ if(!function_exists('load_doctrine_extension')){
         /** @var Repository $config */
         $config = App('config');
 
-        $extensions = (array)$config->get('doctrine.extensions', []);
+        $extensions   = (array) $config->get('doctrine.extensions', []);
         $extensions[] = $class;
 
-        if(! class_exists($class)){
+        if ( ! class_exists($class)) {
             throw ResourceException::doctrineExtensionClassNotExists($class);
         }
         $config->set('doctrine.extensions', $extensions);

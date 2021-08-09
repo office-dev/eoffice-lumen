@@ -15,7 +15,6 @@ namespace Tests\EOffice\Packages\Core;
 
 use EOffice\Packages\Core\Application;
 use EOffice\Packages\Testing\TestCase;
-use EOffice\Packages\Testing\UnitTestCase;
 
 /**
  * @covers \EOffice\Packages\Core\Application

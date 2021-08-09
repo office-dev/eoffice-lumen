@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of the EOffice project.
+ *
+ * (c) Anthonius Munthi <https://itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace Tests\EOffice\Packages\Resource\Helpers;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -8,11 +19,10 @@ use EOffice\Packages\Testing\TestCase;
 use Fixtures\EOffice\Fixtures;
 use Fixtures\EOffice\Model\Foo;
 use LaravelDoctrine\ORM\Facades\EntityManager;
-use function load_doctrine_extension;
 use function register_model;
 
 /**
- * @covers register_model
+ * @covers \register_model
  * @covers \EOffice\Packages\Resource\Exceptions\ResourceException
  */
 class RegisterModelTest extends TestCase
@@ -24,9 +34,9 @@ class RegisterModelTest extends TestCase
 
     public function test_it_should_register_model(): void
     {
-        register_model('Fixtures\\Model',[
+        register_model('Fixtures\\Model', [
             'type' => 'annotation',
-            'path' => Fixtures::getModelPath()
+            'path' => Fixtures::getModelPath(),
         ]);
 
         $this->assertInstanceOf(
@@ -40,8 +50,8 @@ class RegisterModelTest extends TestCase
         $this->expectExceptionObject($e = ResourceException::nullModelPath());
         $this->expectExceptionMessage($e->getMessage());
 
-        register_model('Fixtures\\Model',[
-            'type' => 'annotation'
+        register_model('Fixtures\\Model', [
+            'type' => 'annotation',
         ]);
     }
 
@@ -50,9 +60,9 @@ class RegisterModelTest extends TestCase
         $this->expectExceptionObject($e = ResourceException::modelDirNotExists('foo/bar'));
         $this->expectExceptionMessage($e->getMessage());
 
-        register_model('Fixtures\\Model',[
+        register_model('Fixtures\\Model', [
             'type' => 'annotation',
-            'path' => 'foo/bar'
+            'path' => 'foo/bar',
         ]);
     }
 }

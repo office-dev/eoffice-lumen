@@ -15,9 +15,6 @@
         <testsuite name="EOffice Unit Tests">
             <directory>tests/unit</directory>
         </testsuite>
-        <testsuite name="Functional Tests">
-            <directory>tests/functional</directory>
-        </testsuite>
     </testsuites>
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"
