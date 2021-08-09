@@ -45,7 +45,7 @@ jobs:
         continue-on-error: true
 
       - name: PHPStan
-        run: php vendor/bin/phpstan analyse --error-format=checkstyle --no-progress | cs2pr
+        run: ./vendor/bin/phpstan analyse --no-interaction --no-progress --ansi
 
 
   tests:
