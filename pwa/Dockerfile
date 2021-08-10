@@ -15,17 +15,16 @@ WORKDIR /usr/src/pwa
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
-# prevent the reinstallation of node modules at every changes in the source code
-RUN yarn
-
 VOLUME /usr/src/pwa
 
+# prevent the reinstallation of node modules at every changes in the source code
+RUN npm install
 
 # "development" stage
 # depends on the "common" stage above
 FROM eoffice_pwa_common AS eoffice_pwa_dev
 
-CMD ["yarn", "hot"]
+CMD ["npm", "run", "hot"]
 
 
 # "build" stage
@@ -34,4 +33,4 @@ FROM eoffice_pwa_common AS eoffice_pwa_prod
 
 ENV NODE_ENV production
 
-CMD ["yarn", "production"]
+CMD ["npm", "run", "production"]

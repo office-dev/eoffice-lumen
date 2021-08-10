@@ -45,7 +45,6 @@ class EOffice
         $app = $this->createApplication();
 
         $app->withFacades();
-
         $app->singleton(ExceptionHandler::class, Handler::class);
         $app->singleton(Kernel::class, Console\Kernel::class);
         $app->configure('app');

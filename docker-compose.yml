@@ -52,11 +52,13 @@ services:
       target: eoffice_pwa_dev
     volumes:
       - ./:/usr/src/pwa:rw
-    networks:
-      - eoffice
-    ports:
-      - "8080:8080"
-      - "3000:3000"
+    #networks:
+    #  - eoffice
+    #ports:
+    #  - "8080:8080"
+    #  - "3000:3000"
+    network_mode: host
+
   caddy:
     container_name: "eoffice.caddy"
     build:

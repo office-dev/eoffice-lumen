@@ -20,6 +20,7 @@
     ],
     "require": {
         "php": "^7.4|^8.0",
+        "ext-json": "*",
         "laravel-doctrine/orm": "dev-test as 1.7",
         "laravel-doctrine/passport": "1.x-dev",
         "laravel/lumen-framework": "^8.0"
