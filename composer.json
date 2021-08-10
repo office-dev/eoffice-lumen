@@ -8,21 +8,11 @@
     ],
     "license": "MIT",
     "type": "project",
-    "repositories": [
-        {
-            "type": "github",
-            "url": "https://github.com/kilip/laravel-doctrine-orm"
-        },
-        {
-            "type": "github",
-            "url": "https://github.com/kilip/laravel-doctrine-passport"
-        }
-    ],
     "require": {
         "php": "^7.4|^8.0",
         "ext-json": "*",
-        "laravel-doctrine/orm": "dev-test as 1.7",
-        "laravel-doctrine/passport": "1.x-dev",
+        "eoffice/laravel-doctrine-orm": "dev-patch as 1.7",
+        "eoffice/laravel-doctrine-passport": "1.x-dev",
         "laravel/lumen-framework": "^8.0"
     },
     "require-dev": {
