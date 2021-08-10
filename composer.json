@@ -39,8 +39,8 @@
             "EOffice\\": "src/"
         },
         "files": [
-            "src/Packages/Core/helpers.php",
-            "src/Packages/Resource/helpers.php"
+            "src/Core/helpers.php",
+            "src/Resource/helpers.php"
         ]
     },
     "autoload-dev": {

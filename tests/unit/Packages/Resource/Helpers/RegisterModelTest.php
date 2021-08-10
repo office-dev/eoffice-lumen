@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Tests\EOffice\Packages\Resource\Helpers;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
-use EOffice\Packages\Resource\Exceptions\ResourceException;
-use EOffice\Packages\Testing\TestCase;
+use EOffice\Resource\Exceptions\ResourceException;
+use EOffice\Testing\TestCase;
 use Fixtures\EOffice\Fixtures;
 use Fixtures\EOffice\Model\Foo;
 use LaravelDoctrine\ORM\Facades\EntityManager;
@@ -23,7 +23,7 @@ use function register_model;
 
 /**
  * @covers \register_model
- * @covers \EOffice\Packages\Resource\Exceptions\ResourceException
+ * @covers \EOffice\Resource\Exceptions\ResourceException
  */
 class RegisterModelTest extends TestCase
 {

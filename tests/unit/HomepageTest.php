@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Tests\EOffice;
 
-use EOffice\Packages\Testing\TestCase;
+use EOffice\Testing\TestCase;
 
 /**
- * @covers \EOffice\Packages\Core\Providers\EOfficeServiceProvider
- * @covers \EOffice\Packages\Core\Providers\RouteServiceProvider
- * @covers \EOffice\Packages\Core\Providers\AuthServiceProvider
+ * @covers \EOffice\Core\Providers\EOfficeServiceProvider
+ * @covers \EOffice\Core\Providers\RouteServiceProvider
+ * @covers \EOffice\Core\Providers\AuthServiceProvider
  * @covers \route_register_api
  * @covers \route_register_web
  */
