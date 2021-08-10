@@ -29,8 +29,8 @@ class EOfficeServiceProvider extends ServiceProvider
         $this->app->register(ResourceServiceProvider::class);
         $this->app->register(UserServiceProvider::class);
 
-        if ('local' === env('APP_ENV', 'local')) {
-            $this->app->register('Flipbox\LumenGenerator\LumenGeneratorServiceProvider');
-        }
+        // if ('local' === env('APP_ENV', 'local')) {
+        //    $this->app->register('Flipbox\LumenGenerator\LumenGeneratorServiceProvider');
+        //}
     }
 }
