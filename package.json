@@ -1,5 +1,8 @@
 {
     "name": "eoffice",
+    "engines": {
+        "node": "14.x"
+    },
     "version": "1.0.0",
     "description": "Solusi gratis untuk digitalisasi kantor anda.",
     "main": "index.js",

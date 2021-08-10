@@ -15,7 +15,6 @@ namespace EOffice\Packages\Core\Providers;
 
 use EOffice\Packages\Resource\Providers\ResourceServiceProvider;
 use EOffice\Packages\User\Providers\UserServiceProvider;
-use Flipbox\LumenGenerator\LumenGeneratorServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class EOfficeServiceProvider extends ServiceProvider
@@ -31,7 +30,7 @@ class EOfficeServiceProvider extends ServiceProvider
         $this->app->register(UserServiceProvider::class);
 
         if ('local' === env('APP_ENV', 'local')) {
-            $this->app->register(LumenGeneratorServiceProvider::class);
+            $this->app->register('Flipbox\LumenGenerator\LumenGeneratorServiceProvider');
         }
     }
 }
