@@ -41,7 +41,7 @@
         "vue-loader": "^16.5.0"
     },
     "dependencies": {
-        "@coreui/icons-vue": "@coreui/icons-vue@2.0.0-alpha.1",
+        "@coreui/icons-vue": "^2.0.0-alpha.1",
         "@coreui/vue": "^4.0.0-alpha.1",
         "vue": "^3.2.1",
         "vue-router": "^4.0.11",
