@@ -1,7 +1,7 @@
 name: CI
 on:
   push:
-  pull_request_target: 
+  pull_request:
 
 jobs:
   static:
@@ -30,10 +30,10 @@ jobs:
           path: ~/.composer/cache
           key: composer-cache-php${{ matrix.php }}-laravel${{ matrix.laravel }}
 
-      - name: configure composer config key
-        run: composer config --global github-oauth.github.com "$TOKEN_SECRET"
-        env:
-          TOKEN_SECRET: ${{ secrets.COMPOSER_AUTH_SECRET}}
+      #- name: configure composer config key
+      #  run: composer config --global github-oauth.github.com "$TOKEN_SECRET"
+      #  env:
+      #    TOKEN_SECRET: ${{ secrets.COMPOSER_AUTH_SECRET}}
 
       - name: Install dependencies
         run: |
@@ -81,10 +81,10 @@ jobs:
           path: ~/.composer/cache
           key: composer-cache-php${{ matrix.php }}-laravel${{ matrix.laravel }}
 
-      - name: configure composer config key
-        run: composer config --global github-oauth.github.com "$TOKEN_SECRET"
-        env:
-          TOKEN_SECRET: ${{ secrets.COMPOSER_AUTH_SECRET}}
+      #- name: configure composer config key
+      #  run: composer config --global github-oauth.github.com "$TOKEN_SECRET"
+      #  env:
+      #    TOKEN_SECRET: ${{ secrets.COMPOSER_AUTH_SECRET}}
 
       - name: Install dependencies
         run: |
