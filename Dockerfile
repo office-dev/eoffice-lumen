@@ -1,14 +1,9 @@
-# the different stages of this Dockerfile are meant to be built into separate images
-# https://docs.docker.com/develop/develop-images/multistage-build/#stop-at-a-specific-build-stage
-# https://docs.docker.com/compose/compose-file/#target
-
-
-# https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG PHP_VERSION=8.0
 ARG CADDY_VERSION=2
 
-# "php" stage
-FROM php:${PHP_VERSION}-fpm-alpine AS eoffice_php
+FROM php:${PHP_VERSION}-fpm-alpine as eoffice_php
+
+ARG WWWGROUP
 
 # persistent / runtime deps
 RUN apk add --no-cache \
@@ -42,11 +37,13 @@ RUN set -eux; \
 	; \
 	pecl install \
 		apcu-${APCU_VERSION} \
+        xdebug \
 	; \
 	pecl clear-cache; \
 	docker-php-ext-enable \
 		apcu \
 		opcache \
+        xdebug \
 	; \
 	\
 	runDeps="$( \
@@ -59,42 +56,21 @@ RUN set -eux; \
 	\
 	apk del .build-deps
 
-###> recipes ###
-###< recipes ###
-
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
 RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
-COPY docker/php/conf.d/api-platform.prod.ini $PHP_INI_DIR/conf.d/api-platform.ini
-
+COPY docker/php/conf.d/eoffice.prod.ini $PHP_INI_DIR/conf.d/eoffice.ini
 COPY docker/php/php-fpm.d/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 
 VOLUME /var/run/php
-
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
+VOLUME /srv/api/storage
 WORKDIR /srv/api
 
 # build for production
 ARG APP_ENV=prod
-
-# prevent the reinstallation of vendors at every changes in the source code
-COPY composer.json composer.lock ./
-RUN set -eux; \
-	composer install --prefer-dist --no-dev --no-scripts --no-progress; \
-	composer clear-cache
-
-# copy only specifically what we need
-COPY .env ./
-COPY config config/
-COPY public public/
-COPY src src/
-
-#RUN set -eux; \
-#    composer run-script --no-dev post-install-cmd
-VOLUME /srv/api/storage
 
 COPY docker/php/docker-healthcheck.sh /usr/local/bin/docker-healthcheck
 RUN chmod +x /usr/local/bin/docker-healthcheck
@@ -104,19 +80,23 @@ HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
 COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
-ENV SYMFONY_PHPUNIT_VERSION=9
-
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
 
-# "caddy" stage
-# depends on the "php" stage above
-#FROM caddy:${CADDY_VERSION}-builder-alpine AS eoffice_caddy_builder
+FROM caddy:${CADDY_VERSION}-builder-alpine AS eoffice_caddy_builder
+
+# install Mercure and Vulcain modules
+RUN xcaddy build \
+    --with github.com/dunglas/mercure \
+    --with github.com/dunglas/mercure/caddy \
+    --with github.com/dunglas/vulcain \
+    --with github.com/dunglas/vulcain/caddy
 
 FROM caddy:${CADDY_VERSION} AS eoffice_caddy
 
 WORKDIR /srv/api
 
-#COPY --from=eoffice_caddy_builder /usr/bin/caddy /usr/bin/caddy
-COPY --from=eoffice_php /srv/api/public public/
+COPY --from=eoffice_caddy_builder /usr/bin/caddy /usr/bin/caddy
+#COPY --from=eoffice_php /srv/api/public public/
 COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
+

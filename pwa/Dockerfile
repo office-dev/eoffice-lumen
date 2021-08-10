@@ -9,35 +9,29 @@ ARG NODE_VERSION=14
 FROM node:${NODE_VERSION}-alpine AS eoffice_pwa_common
 
 EXPOSE 3000
+EXPOSE 8080
 
 WORKDIR /usr/src/pwa
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
 # prevent the reinstallation of node modules at every changes in the source code
-COPY package.json yarn.lock ./
 RUN yarn
 
-COPY . ./
-
-VOLUME /usr/src/pwa/node_modules
+VOLUME /usr/src/pwa
 
 
 # "development" stage
 # depends on the "common" stage above
-FROM eoffice_pwa_common AS eoffice_pwa_local
+FROM eoffice_pwa_common AS eoffice_pwa_dev
 
-CMD ["yarn", "dev"]
+CMD ["yarn", "hot"]
 
 
 # "build" stage
 # depends on the "common" stage above
-FROM eoffice_pwa_common AS eoffice_pwa_staging
+FROM eoffice_pwa_common AS eoffice_pwa_prod
 
 ENV NODE_ENV production
-ARG NEXT_PUBLIC_ENTRYPOINT
 
-RUN set -eux; \
-	yarn build
-
-CMD ["yarn", "start"]
+CMD ["yarn", "production"]

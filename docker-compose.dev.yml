@@ -7,14 +7,14 @@ services:
       - ./:/srv/api:rw,cached
       - ./docker/php/conf.d/api-platform.dev.ini:/usr/local/etc/php/conf.d/api-platform.ini
       # if you develop on Linux, you may use a bind-mounted host directory instead
-      # - ./api/var:/srv/api/var:rw
+      #- ./api/var:/srv/api/var:rw
     environment:
-      APP_ENV: local
+      APP_ENV: dev
 
   pwa:
     build:
       context: ./pwa
-      target: eoffice_pwa_local
+      target: eoffice_pwa_dev
     volumes:
       - ./pwa:/usr/src/pwa:rw,cached
 
@@ -22,6 +22,8 @@ services:
     volumes:
       - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - ./public:/srv/api/public:ro
+    environment:
+      MERCURE_EXTRA_DIRECTIVES: demo
 
   database:
     ports:

@@ -22,7 +22,7 @@ class ResourceException extends \Exception
         );
     }
 
-    public static function modelDirNotExists(mixed $dir): self
+    public static function modelDirNotExists(string $dir): self
     {
         return new self(sprintf(
             'Model direktori "%s" tidak ditemukan.',

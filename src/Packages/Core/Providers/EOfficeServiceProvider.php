@@ -21,6 +21,7 @@ class EOfficeServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
+        $this->loadViewsFrom(realpath(__DIR__.'/../Resources/views'), 'core');
     }
 
     public function register()

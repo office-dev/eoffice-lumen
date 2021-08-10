@@ -7,3 +7,4 @@ Homestead.yaml
 *.cache
 .phpunit.cache
 build
+node_modules
