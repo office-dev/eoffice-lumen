@@ -11,8 +11,14 @@
 
 declare(strict_types=1);
 
-require_once __DIR__.'/../vendor/autoload.php';
+namespace EOffice\Core\Exceptions;
 
-use EOffice\Core\EOffice;
-
-return (new EOffice())->bootstrap()->getApplication();
+class CoreException extends \Exception
+{
+    public static function undetectedBasePathDir(): self
+    {
+        return new self(
+            'Gagal deteksi direktori aplikasi.'
+        );
+    }
+}

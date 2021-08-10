@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Tests\EOffice\Packages\Resource\Helpers;
 
-use EOffice\Packages\Resource\Exceptions\ResourceException;
-use EOffice\Packages\Testing\TestCase;
+use EOffice\Resource\Exceptions\ResourceException;
+use EOffice\Testing\TestCase;
 use LaravelDoctrine\Extensions\Timestamps\TimestampableExtension;
 
 /**
  * @covers \load_doctrine_extension
- * @covers \EOffice\Packages\Resource\Exceptions\ResourceException
+ * @covers \EOffice\Resource\Exceptions\ResourceException
  */
 class LoadDoctrineExtensionTest extends TestCase
 {

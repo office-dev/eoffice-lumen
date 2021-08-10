@@ -11,8 +11,10 @@
 
 declare(strict_types=1);
 
-require_once __DIR__.'/../vendor/autoload.php';
+namespace EOffice\Core\Controllers;
 
-use EOffice\Core\EOffice;
+use Laravel\Lumen\Routing\Controller as BaseController;
 
-return (new EOffice())->bootstrap()->getApplication();
+class Controller extends BaseController
+{
+}

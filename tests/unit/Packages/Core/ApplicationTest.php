@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Tests\EOffice\Packages\Core;
 
-use EOffice\Packages\Core\Application;
-use EOffice\Packages\Testing\TestCase;
+use EOffice\Core\Application;
+use EOffice\Testing\TestCase;
 
 /**
- * @covers \EOffice\Packages\Core\Application
+ * @covers \EOffice\Core\Application
  */
 class ApplicationTest extends TestCase
 {

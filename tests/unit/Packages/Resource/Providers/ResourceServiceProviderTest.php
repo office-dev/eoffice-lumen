@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Tests\EOffice\Packages\Resource\Providers;
 
-use EOffice\Packages\Testing\Concerns\InteractsWithServiceProvider;
-use EOffice\Packages\Testing\TestCase;
+use EOffice\Testing\Concerns\InteractsWithServiceProvider;
+use EOffice\Testing\TestCase;
 use LaravelDoctrine\Extensions\GedmoExtensionsServiceProvider;
 use LaravelDoctrine\ORM\DoctrineServiceProvider;
 
 /**
- * @covers \EOffice\Packages\Resource\Providers\ResourceServiceProvider
+ * @covers \EOffice\Resource\Providers\ResourceServiceProvider
  */
 class ResourceServiceProviderTest extends TestCase
 {

@@ -11,8 +11,19 @@
 
 declare(strict_types=1);
 
-require_once __DIR__.'/../vendor/autoload.php';
+namespace EOffice\User\Model;
 
-use EOffice\Core\EOffice;
+use Doctrine\ORM\Mapping as ORM;
 
-return (new EOffice())->bootstrap()->getApplication();
+/**
+ * @ORM\Entity
+ */
+class User
+{
+    /**
+     * @ORM\Column(type="string")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="UUID")
+     */
+    protected string $id;
+}

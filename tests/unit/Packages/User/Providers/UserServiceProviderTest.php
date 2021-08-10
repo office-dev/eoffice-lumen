@@ -14,13 +14,13 @@ declare(strict_types=1);
 namespace Tests\EOffice\Packages\User\Providers;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
-use EOffice\Packages\Testing\TestCase;
-use EOffice\Packages\User\Model\User;
-use EOffice\Packages\User\Providers\UserServiceProvider;
+use EOffice\Testing\TestCase;
+use EOffice\User\Model\User;
+use EOffice\User\Providers\UserServiceProvider;
 use LaravelDoctrine\ORM\Facades\EntityManager;
 
 /**
- * @covers \EOffice\Packages\User\Providers\UserServiceProvider
+ * @covers \EOffice\User\Providers\UserServiceProvider
  */
 class UserServiceProviderTest extends TestCase
 {
@@ -34,7 +34,7 @@ class UserServiceProviderTest extends TestCase
     public function test_it_should_configure_user_model(): void
     {
         $mappings = (array) config('doctrine.managers.default.mappings', []);
-        $this->assertArrayHasKey('EOffice\\Packages\\User\\Model', $mappings);
+        $this->assertArrayHasKey('EOffice\\User\\Model', $mappings);
 
         $metadata = EntityManager::getClassMetadata(User::class);
         $this->assertInstanceOf(
