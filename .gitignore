@@ -8,4 +8,5 @@ Homestead.yaml
 .phpunit.cache
 build
 node_modules
-public/dist
+# public dir
+/public/dist
